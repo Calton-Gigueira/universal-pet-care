@@ -38,8 +38,24 @@ public class EntityDtoMapper {
     userDto.setPhoneNumber(user.getPhoneNumber());
     userDto.setEnabled(user.isEnabled());
     userDto.setSpecialization(user.getSpecialization());
-    
+
     return userDto;
+  }
+  
+  public User mapDtoToUserBasic(UserDto userDto) {
+    User user = new User();
+    user.setId(userDto.getId());
+    user.setFirstName(userDto.getFirstName());
+    user.setLastName(userDto.getLastName());
+    user.setGender(userDto.getGender());
+    user.setEmail(userDto.getEmail());
+    user.setPassword(userDto.getPassword());
+    user.setUserType(userDto.getUserType());
+    user.setPhoneNumber(userDto.getPhoneNumber());
+    user.setEnabled(userDto.isEnabled());
+    user.setSpecialization(userDto.getSpecialization());
+
+    return user;
   }
 
   public AdminDto mapAdminToDtoBasic(Admin admin) {
