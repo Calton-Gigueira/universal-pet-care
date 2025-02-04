@@ -1,6 +1,7 @@
 package com.cgigueira.universalpetcare.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,8 +47,11 @@ public class User {
 
   @Transient
   private String specialization;
-
+  
   @Column(name = "created_at")
   private final LocalDateTime CREATED_AT = LocalDateTime.now();
+  
+  @Transient
+  private List<Appointment> appointments;
 
 }
