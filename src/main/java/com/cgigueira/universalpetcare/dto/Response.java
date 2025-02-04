@@ -28,4 +28,7 @@ public class Response {
   private UserDto userDto;
   private List<UserDto> userDtos;
 
+  private AppointmentDto appointmentDto;
+  private List<AppointmentDto> appointmentDtos;
+
 }

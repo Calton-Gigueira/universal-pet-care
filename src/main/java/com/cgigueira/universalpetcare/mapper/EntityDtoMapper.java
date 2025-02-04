@@ -3,10 +3,12 @@ package com.cgigueira.universalpetcare.mapper;
 import org.springframework.stereotype.Component;
 
 import com.cgigueira.universalpetcare.dto.AdminDto;
+import com.cgigueira.universalpetcare.dto.AppointmentDto;
 import com.cgigueira.universalpetcare.dto.PatientDto;
 import com.cgigueira.universalpetcare.dto.UserDto;
 import com.cgigueira.universalpetcare.dto.VeterinarianDto;
 import com.cgigueira.universalpetcare.model.Admin;
+import com.cgigueira.universalpetcare.model.Appointment;
 import com.cgigueira.universalpetcare.model.Patient;
 import com.cgigueira.universalpetcare.model.User;
 import com.cgigueira.universalpetcare.model.Veterinarian;
@@ -102,6 +104,24 @@ public class EntityDtoMapper {
     veterinarianDto.setEnabled(veterinarian.isEnabled());
 
     return veterinarianDto;
+  }
+
+  public AppointmentDto mapAppointmentToDtoBasic(Appointment appointment) {
+    AppointmentDto appointmentDto = new AppointmentDto();
+    appointmentDto.setId(appointment.getId());
+    appointmentDto.setReason(appointment.getReason());
+    appointmentDto.setDate(appointment.getDate());
+    appointmentDto.setTime(appointment.getTime());
+    appointmentDto.setCREATED_AT(appointment.getCREATED_AT());
+    appointmentDto.setStatus(appointment.getStatus().name());
+
+    UserDto patient = this.mapUserToDtoBasic(appointment.getPatient());
+    appointmentDto.setPatient(patient);
+
+    UserDto veterinarian = this.mapUserToDtoBasic(appointment.getPatient());
+    appointmentDto.setVeterinarian(veterinarian);
+
+    return appointmentDto;
   }
 
 }
