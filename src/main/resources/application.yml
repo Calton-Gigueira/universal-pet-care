@@ -11,3 +11,6 @@ spring:
       ddl-auto: update
     database: mysql
     show-sql: true
+
+server:
+  port: 9090
