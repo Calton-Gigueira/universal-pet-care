@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: universal-pet-care
+  datasource:
+    url: jdbc:mysql://localhost:3306/universal_pet_care
+    username: root
+    password: clmgigueira
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    show-sql: true
