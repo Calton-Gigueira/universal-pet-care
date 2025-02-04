@@ -31,6 +31,13 @@ public class UserController {
           .message(e.getMessage())
           .build()
       );
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+        Response.builder()
+          .status(500)
+          .message(e.getMessage())
+          .build()
+      );
     }
   }
 
