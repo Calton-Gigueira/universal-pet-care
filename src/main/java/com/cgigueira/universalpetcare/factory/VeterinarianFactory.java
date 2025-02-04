@@ -27,7 +27,7 @@ public class VeterinarianFactory {
 
     VeterinarianDto veterinarianDto = this.entityDtoMapper.mapVeterinarianToDtoBasic(veterinarian);
     return Response.builder()
-      .status(200)
+      .status(201)
       .message("Veterinarian reigisterd successfully!")
       .veterinarianDto(veterinarianDto)
       .build();

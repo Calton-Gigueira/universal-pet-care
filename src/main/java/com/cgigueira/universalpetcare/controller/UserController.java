@@ -23,7 +23,9 @@ public class UserController {
   @PostMapping("/register")
   public ResponseEntity<Response> registerUser(@RequestBody UserDto registrationRequest) {
     try {
-      return ResponseEntity.ok(this.userService.registerUser(registrationRequest));
+      return ResponseEntity.status(HttpStatus.CREATED).body(
+        this.userService.registerUser(registrationRequest)
+      );
     } catch (UserAlreadyExistsException e) {
       return ResponseEntity.status(HttpStatus.CONFLICT).body(
         Response.builder()
