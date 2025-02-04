@@ -4,13 +4,43 @@ import org.springframework.stereotype.Component;
 
 import com.cgigueira.universalpetcare.dto.AdminDto;
 import com.cgigueira.universalpetcare.dto.PatientDto;
+import com.cgigueira.universalpetcare.dto.UserDto;
 import com.cgigueira.universalpetcare.dto.VeterinarianDto;
 import com.cgigueira.universalpetcare.model.Admin;
 import com.cgigueira.universalpetcare.model.Patient;
+import com.cgigueira.universalpetcare.model.User;
 import com.cgigueira.universalpetcare.model.Veterinarian;
 
 @Component
 public class EntityDtoMapper {
+
+  public void setCommonAttributes(UserDto source, User target) {
+    target.setId(source.getId());
+    target.setFirstName(source.getFirstName());
+    target.setLastName(source.getLastName());
+    target.setGender(source.getGender());
+    target.setEmail(source.getEmail());
+    target.setPassword(source.getPassword());
+    target.setUserType(source.getUserType());
+    target.setPhoneNumber(source.getPhoneNumber());
+    target.setEnabled(source.isEnabled());
+  }
+
+  public UserDto mapUserToDtoBasic(User user) {
+    UserDto userDto = new UserDto();
+    userDto.setId(user.getId());
+    userDto.setFirstName(user.getFirstName());
+    userDto.setLastName(user.getLastName());
+    userDto.setGender(user.getGender());
+    userDto.setEmail(user.getEmail());
+    userDto.setPassword(user.getPassword());
+    userDto.setUserType(user.getUserType());
+    userDto.setPhoneNumber(user.getPhoneNumber());
+    userDto.setEnabled(user.isEnabled());
+    userDto.setSpecialization(user.getSpecialization());
+    
+    return userDto;
+  }
 
   public AdminDto mapAdminToDtoBasic(Admin admin) {
     AdminDto adminDto = new AdminDto();
@@ -22,7 +52,8 @@ public class EntityDtoMapper {
     adminDto.setPassword(admin.getPassword());
     adminDto.setUserType(admin.getUserType());
     adminDto.setPhoneNumber(admin.getPhoneNumber());
-
+    adminDto.setEnabled(admin.isEnabled());
+    
     return adminDto;
   }
 
@@ -36,22 +67,25 @@ public class EntityDtoMapper {
     patientDto.setPassword(patient.getPassword());
     patientDto.setUserType(patient.getUserType());
     patientDto.setPhoneNumber(patient.getPhoneNumber());
-
+    patientDto.setEnabled(patient.isEnabled());
+    
     return patientDto;
   }
 
-  public VeterinarianDto mapVeterinarianToDtoBasic(Veterinarian veterianrian) {
-    VeterinarianDto veterianrianDto = new VeterinarianDto();
-    veterianrianDto.setId(veterianrian.getId());
-    veterianrianDto.setFirstName(veterianrian.getFirstName());
-    veterianrianDto.setLastName(veterianrian.getLastName());
-    veterianrianDto.setGender(veterianrian.getGender());
-    veterianrianDto.setEmail(veterianrian.getEmail());
-    veterianrianDto.setPassword(veterianrian.getPassword());
-    veterianrianDto.setUserType(veterianrian.getUserType());
-    veterianrianDto.setPhoneNumber(veterianrian.getPhoneNumber());
+  public VeterinarianDto mapVeterinarianToDtoBasic(Veterinarian veterinarian) {
+    VeterinarianDto veterinarianDto = new VeterinarianDto();
+    veterinarianDto.setId(veterinarian.getId());
+    veterinarianDto.setFirstName(veterinarian.getFirstName());
+    veterinarianDto.setLastName(veterinarian.getLastName());
+    veterinarianDto.setGender(veterinarian.getGender());
+    veterinarianDto.setEmail(veterinarian.getEmail());
+    veterinarianDto.setPassword(veterinarian.getPassword());
+    veterinarianDto.setUserType(veterinarian.getUserType());
+    veterinarianDto.setPhoneNumber(veterinarian.getPhoneNumber());
+    veterinarianDto.setSpecialization(veterinarian.getSpecialization());
+    veterinarianDto.setEnabled(veterinarian.isEnabled());
 
-    return veterianrianDto;
+    return veterinarianDto;
   }
 
 }

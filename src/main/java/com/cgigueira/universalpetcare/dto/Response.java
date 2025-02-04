@@ -25,4 +25,7 @@ public class Response {
   private VeterinarianDto veterinarianDto;
   private List<VeterinarianDto> veterinarianDtos;
 
+  private UserDto userDto;
+  private List<UserDto> userDtos;
+
 }

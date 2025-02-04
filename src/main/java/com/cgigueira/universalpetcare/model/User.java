@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
@@ -37,10 +38,14 @@ public class User {
   @Column(name = "phone_number")
   private String phoneNumber;
   
+  @Column(unique = true)
   private String email;
   private String password;
   private String userType;
   private boolean isEnabled;
+
+  @Transient
+  private String specialization;
 
   @Column(name = "created_at")
   private final LocalDateTime CREATED_AT = LocalDateTime.now();
