@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.cgigueira.universalpetcare.dto.Response;
 import com.cgigueira.universalpetcare.dto.UserDto;
 import com.cgigueira.universalpetcare.dto.VeterinarianDto;
+import com.cgigueira.universalpetcare.enums.UserRole;
 import com.cgigueira.universalpetcare.mapper.EntityDtoMapper;
 import com.cgigueira.universalpetcare.model.Veterinarian;
 import com.cgigueira.universalpetcare.repository.VeterinarianRepository;
@@ -23,9 +24,10 @@ public class VeterinarianFactory {
     Veterinarian veterinarian = new Veterinarian();
     this.entityDtoMapper.setCommonAttributes(registrationRequest, veterinarian);
     veterinarian.setSpecialization(registrationRequest.getSpecialization());
-    this.veterinarianRepository.save(veterinarian);
+    veterinarian.setRole(UserRole.USER);
+    Veterinarian savedVeterinarian = this.veterinarianRepository.save(veterinarian);
 
-    VeterinarianDto veterinarianDto = this.entityDtoMapper.mapVeterinarianToDtoBasic(veterinarian);
+    VeterinarianDto veterinarianDto = this.entityDtoMapper.mapVeterinarianToDtoBasic(savedVeterinarian);
     return Response.builder()
       .status(201)
       .message("Veterinarian reigisterd successfully!")

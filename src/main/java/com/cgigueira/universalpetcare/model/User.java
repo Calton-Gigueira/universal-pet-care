@@ -3,6 +3,8 @@ package com.cgigueira.universalpetcare.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.cgigueira.universalpetcare.enums.UserRole;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,6 +46,7 @@ public class User {
   private String password;
   private String userType;
   private boolean isEnabled;
+  private UserRole role;
 
   @Transient
   private String specialization;

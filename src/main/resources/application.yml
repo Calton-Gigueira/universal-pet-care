@@ -14,3 +14,7 @@ spring:
 
 server:
   port: 9090
+security:
+  jwt:
+    secret: vhjkifhugybhnmwt2io3u5iejt2kiowgee9485ierewqregrowy35hy5236e5r2h5484
+    expiration: 360000000

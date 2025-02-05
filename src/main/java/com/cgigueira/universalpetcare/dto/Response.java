@@ -16,6 +16,8 @@ public class Response {
   private String message;
   private String token;
 
+  private List<String> roles;
+
   private AdminDto adminDto;
   private List<AdminDto> adminDtos;
 

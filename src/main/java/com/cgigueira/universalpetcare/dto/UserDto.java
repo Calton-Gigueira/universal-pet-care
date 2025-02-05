@@ -14,6 +14,7 @@ public class UserDto {
   private String phoneNumber;
   private String email;
   private String password;
+  private String role;
   private String specialization;
   private String userType;
   private boolean isEnabled;

@@ -1,5 +1,7 @@
 package com.cgigueira.universalpetcare.mapper;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.cgigueira.universalpetcare.dto.AdminDto;
@@ -16,13 +18,17 @@ import com.cgigueira.universalpetcare.model.Veterinarian;
 @Component
 public class EntityDtoMapper {
 
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
   public void setCommonAttributes(UserDto source, User target) {
     target.setId(source.getId());
     target.setFirstName(source.getFirstName());
     target.setLastName(source.getLastName());
     target.setGender(source.getGender());
     target.setEmail(source.getEmail());
-    target.setPassword(source.getPassword());
+    String encodedPassword = this.passwordEncoder.encode(source.getPassword());
+    target.setPassword(encodedPassword);
     target.setUserType(source.getUserType());
     target.setPhoneNumber(source.getPhoneNumber());
     target.setEnabled(source.isEnabled());
@@ -40,6 +46,7 @@ public class EntityDtoMapper {
     userDto.setPhoneNumber(user.getPhoneNumber());
     userDto.setEnabled(user.isEnabled());
     userDto.setSpecialization(user.getSpecialization());
+    userDto.setRole(user.getRole().name());
 
     return userDto;
   }
@@ -71,6 +78,7 @@ public class EntityDtoMapper {
     adminDto.setUserType(admin.getUserType());
     adminDto.setPhoneNumber(admin.getPhoneNumber());
     adminDto.setEnabled(admin.isEnabled());
+    adminDto.setRole(admin.getRole().name());
     
     return adminDto;
   }
@@ -86,6 +94,7 @@ public class EntityDtoMapper {
     patientDto.setUserType(patient.getUserType());
     patientDto.setPhoneNumber(patient.getPhoneNumber());
     patientDto.setEnabled(patient.isEnabled());
+    patientDto.setRole(patient.getRole().name());
     
     return patientDto;
   }
@@ -102,6 +111,7 @@ public class EntityDtoMapper {
     veterinarianDto.setPhoneNumber(veterinarian.getPhoneNumber());
     veterinarianDto.setSpecialization(veterinarian.getSpecialization());
     veterinarianDto.setEnabled(veterinarian.isEnabled());
+    veterinarianDto.setRole(veterinarian.getRole().name());
 
     return veterinarianDto;
   }
