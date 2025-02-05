@@ -1,6 +1,7 @@
 package com.cgigueira.universalpetcare.factory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cgigueira.universalpetcare.dto.AdminDto;
@@ -19,10 +20,15 @@ public class AdminFactory {
 
   @Autowired
   private AdminRepository adminRepository;
+  
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   public Response createAdmin(UserDto registrationRequest) {
     Admin admin = new Admin();
     this.entityDtoMapper.setCommonAttributes(registrationRequest, admin);
+    String encodedPassword = this.passwordEncoder.encode(registrationRequest.getPassword());
+    admin.setPassword(encodedPassword);
     admin.setRole(UserRole.ADMIN);
     Admin saveAdmin = this.adminRepository.save(admin);
 

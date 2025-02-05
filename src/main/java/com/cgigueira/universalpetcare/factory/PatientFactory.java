@@ -1,6 +1,7 @@
 package com.cgigueira.universalpetcare.factory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cgigueira.universalpetcare.dto.PatientDto;
@@ -20,9 +21,14 @@ public class PatientFactory {
   @Autowired
   private PatientRepository patientRepository;
 
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
   public Response createPatient(UserDto registrationRequest) {
     Patient patient = new Patient();
     this.entityDtoMapper.setCommonAttributes(registrationRequest, patient);
+    String encodedPassword = this.passwordEncoder.encode(registrationRequest.getPassword());
+    patient.setPassword(encodedPassword);
     patient.setRole(UserRole.USER);
     Patient savedPatient = this.patientRepository.save(patient);
 

@@ -1,6 +1,7 @@
 package com.cgigueira.universalpetcare.factory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cgigueira.universalpetcare.dto.Response;
@@ -20,11 +21,16 @@ public class VeterinarianFactory {
   @Autowired
   private EntityDtoMapper entityDtoMapper;
 
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
   public Response createVeterinarian(UserDto registrationRequest) {
     Veterinarian veterinarian = new Veterinarian();
     this.entityDtoMapper.setCommonAttributes(registrationRequest, veterinarian);
     veterinarian.setSpecialization(registrationRequest.getSpecialization());
     veterinarian.setRole(UserRole.USER);
+    String encodedPassword = this.passwordEncoder.encode(registrationRequest.getPassword());
+    veterinarian.setPassword(encodedPassword);
     Veterinarian savedVeterinarian = this.veterinarianRepository.save(veterinarian);
 
     VeterinarianDto veterinarianDto = this.entityDtoMapper.mapVeterinarianToDtoBasic(savedVeterinarian);

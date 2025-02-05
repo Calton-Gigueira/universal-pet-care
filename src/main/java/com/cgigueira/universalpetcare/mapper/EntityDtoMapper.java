@@ -1,7 +1,5 @@
 package com.cgigueira.universalpetcare.mapper;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.cgigueira.universalpetcare.dto.AdminDto;
@@ -18,17 +16,12 @@ import com.cgigueira.universalpetcare.model.Veterinarian;
 @Component
 public class EntityDtoMapper {
 
-  @Autowired
-  private PasswordEncoder passwordEncoder;
-
   public void setCommonAttributes(UserDto source, User target) {
     target.setId(source.getId());
     target.setFirstName(source.getFirstName());
     target.setLastName(source.getLastName());
     target.setGender(source.getGender());
     target.setEmail(source.getEmail());
-    String encodedPassword = this.passwordEncoder.encode(source.getPassword());
-    target.setPassword(encodedPassword);
     target.setUserType(source.getUserType());
     target.setPhoneNumber(source.getPhoneNumber());
     target.setEnabled(source.isEnabled());

@@ -18,7 +18,9 @@ public class PetCareUserDetailsService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = this.userRepository.findByEmail(username);
-    //.orElseThrow(() -> new UsernameNotFoundException("User not found❌⛔"));
+    
+    if (user == null)
+      throw new UsernameNotFoundException("User not found❌⛔");
       
     return PetCareUserDetails.builder()
       .user(user)

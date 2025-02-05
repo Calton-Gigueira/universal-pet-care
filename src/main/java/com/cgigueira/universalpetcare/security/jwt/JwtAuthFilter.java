@@ -1,7 +1,6 @@
 package com.cgigueira.universalpetcare.security.jwt;
 
 import java.io.IOException;
-import java.net.http.HttpRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

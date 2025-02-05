@@ -41,6 +41,7 @@ public class SecurityConfig {
       .exceptionHandling(ex -> ex.authenticationEntryPoint(this.jwtEntryPoint))
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**").permitAll()
+        .requestMatchers("/api/v1/users/**").hasRole("ADMIN")
         .anyRequest().authenticated())
       .authenticationProvider(this.authenticationProvider())
       .addFilterBefore(this.jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
@@ -61,8 +62,9 @@ public class SecurityConfig {
 
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
-    DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider(this.passwordEncoder());
+    DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
     authenticationProvider.setUserDetailsService(this.userDetailsService);
+    authenticationProvider.setPasswordEncoder(this.passwordEncoder());
     return authenticationProvider;
   }
   

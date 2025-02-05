@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -117,14 +118,17 @@ public class UserServiceImplementation implements UserService {
   @Override
   public Response loginUser(LoginRequest loginRequest) {
     User user = this.userRepository.findByEmail(loginRequest.getEmail());
-        // .orElseThrow(() -> new UsernameNotFoundException("Email not found"));
 
-    if (!this.passwordEncoder.matches(user.getPassword(), loginRequest.getPassword()))
+    if (user == null) {
+      throw new UsernameNotFoundException("Email not found");
+    }
+
+    if (!this.passwordEncoder.matches(loginRequest.getPassword(), user.getPassword()))
       throw new InvalidCredentialsException("Incorrect password");
 
     Authentication authentication = 
       this.authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()
+        new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()
     ));
     SecurityContextHolder.getContext().setAuthentication(authentication);
     String token = this.jwtUtils.generateToken(authentication);
